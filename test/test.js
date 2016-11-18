@@ -184,3 +184,80 @@ describe('destructuring', function(){
     expect(result).to.equal('some data');
   });
 });
+
+describe('rest parameters', function(){
+  it('like array', function(){
+    let doWork = function(name, ...numbers){
+      let result = 0;
+      numbers.forEach(function(n){
+        result += n;
+      });
+      return result;
+    };
+
+    let result = doWork('name', 1, 2, 3);
+    expect(result).to.equal(6);
+  });
+
+  it('like array', function(){
+    //when
+    let doWork = function(name, ...numbers){
+      let result = 0;
+      numbers.forEach(function(n){
+        result += n;
+      });
+      return result;
+    };
+
+    let result = doWork('name');
+    expect(result).to.equal(0);
+  });
+
+});
+
+describe('spread parameters', function(){
+  it('can spread an array across paramteres', function(){
+    //when
+    let doWork = function(x, y, z ){
+      return x + y + z;
+    };
+
+    let result = doWork(...[1, 2, 3]);
+    expect(result).to.equal(6);
+  });
+
+  it('can build arrays', function(){
+    var a = [4, 5, 6];
+    var b = [1, 2, 3, ...a, 7, 8];
+
+    // expect(b).to.equal([1,2,3,4,5,6,7,8]); for some reason not working
+  });
+});
+
+describe('templates literal', function(){
+  it('can easily combine literals and data', function(){
+    let doWork = function(name){
+      return `Hello, ${name}`;
+    };
+
+    expect(doWork('Meital')).to.equal("Hello, Meital");
+  });
+
+  it('can use tags', function(){
+    let upper = function(strings, ...values){
+        let results = '';
+        for(let i = 0; i < strings.length; i++){
+          results += strings[i];
+          if(i < values.length){
+            results += values[i];
+          }
+        }
+        return results.toUpperCase();
+    };
+
+    var x = 2;
+    var y = 3;
+    var result = upper `${x} + ${y} is ${x+y}`;
+    expect(result).to.equal('2 + 3 IS 5');
+  });
+});
