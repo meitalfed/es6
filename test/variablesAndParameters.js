@@ -230,7 +230,7 @@ describe('spread parameters', function(){
     var a = [4, 5, 6];
     var b = [1, 2, 3, ...a, 7, 8];
 
-    // expect(b).to.equal([1,2,3,4,5,6,7,8]); for some reason not working
+    expect(b).to.deep.equal([1,2,3,4,5,6,7,8]);
   });
 });
 
